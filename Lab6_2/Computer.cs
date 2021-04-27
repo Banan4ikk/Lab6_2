@@ -9,6 +9,7 @@ namespace Lab6_2
     class Computer : IComputer, IOverclock
     {
         private bool Overclock = false;
+        private bool IsCause = false;// переменная для проверки вызова 
         private static Random random = new Random();
         public Enum procType { get ; set ; }
         public Enum MName { get ; set ; }
@@ -17,7 +18,7 @@ namespace Lab6_2
         public int RAMCap { get ; set ; }
         public List<string> software { get ; set ; }
         public List<string> users { get ; set ; }
-
+        //Конструктор с параметрами
         public Computer(Enum procType, Enum MName, Enum OSType, int frequncy, int RAMCap, List<string> software, List<string> users)
         {
             this.procType = procType;
@@ -28,12 +29,12 @@ namespace Lab6_2
             this.software = software;
             this.users = users;
         }
-
+        // Конструктор без параметров
         public Computer()
         {
 
         }
-
+        //ДАнные для рандомной генерации
         public enum ProcList
         {
             AMDThreadripper = 1,
@@ -84,30 +85,44 @@ namespace Lab6_2
             new List<string>{"Евгения","Ольга","Яна"},
             new List<string>{"Николай","Алексей","Мама"}
         };
-
+        //Реализация метода OverclockTheComputer Если определенный процессор, тогда он может троттлить или нет
+        //Возвращает значение по определнному процессору
         public bool OverclockTheComputer(Enum procType)
         {
-            switch (procType)
+            if (IsCause == false)
             {
-                case ProcList.AMDThreadripper: Overclock = true;
-                    break;
-                case ProcList.AMDAthlon3000G: Overclock = false;
-                    break;
-                case ProcList.AMDFX: Overclock = true;
-                    break;
-                case ProcList.ItelCorei9900ks: Overclock = true;
-                    break;
-                case ProcList.INTELCorei911900K: Overclock = true;
-                    break;
-                case ProcList.IntelCorei911700k: Overclock = true;
-                    break;
-                case ProcList.INTELCeleronG5925: Overclock = false;
-                    break;
-                case ProcList.IntelCorei910900X: Overclock = false;
-                    break;
+                IsCause = true;
+                switch (procType)
+                {
+                    case ProcList.AMDThreadripper:
+                        Overclock = true;
+                        break;
+                    case ProcList.AMDAthlon3000G:
+                        Overclock = false;
+                        break;
+                    case ProcList.AMDFX:
+                        Overclock = true;
+                        break;
+                    case ProcList.ItelCorei9900ks:
+                        Overclock = true;
+                        break;
+                    case ProcList.INTELCorei911900K:
+                        Overclock = true;
+                        break;
+                    case ProcList.IntelCorei911700k:
+                        Overclock = true;
+                        break;
+                    case ProcList.INTELCeleronG5925:
+                        Overclock = false;
+                        break;
+                    case ProcList.IntelCorei910900X:
+                        Overclock = false;
+                        break;
 
+                }
+                return Overclock;
             }
-            return Overclock;
+            else throw new Exception("More than one usage");
         }
 
         public static Computer Generate()

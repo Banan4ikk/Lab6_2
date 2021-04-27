@@ -16,6 +16,7 @@ namespace Lab6_2
             Italy,
             Belarus
         }
+        
         static void Main(string[] args)
         {
             List<Computer> computers = Computer.Generate100();
@@ -106,6 +107,13 @@ namespace Lab6_2
             string s = "каkue Tо Puccкие БykBы Bпеpemeshku c ЛаTincкиМи";
 
             string news = s.RemoveRussians();
+
+            Computer computerr = new Computer();
+            
+
+            //Проверка на невозможность вызова метода больше 1 раза
+            computerr.OverclockTheComputer(Computer.ProcList.AMDThreadripper);
+            computerr.OverclockTheComputer(Computer.ProcList.INTELCeleronG5925);
         }
     }
 }
